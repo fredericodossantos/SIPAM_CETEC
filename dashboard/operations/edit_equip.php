@@ -1,7 +1,7 @@
 <?php
 session_start();
 // 
-include_once '../db/database.php';
+include_once '../../db/database.php';
 
 if (isset($_POST['update_data'])) {
     $name = $_POST['name'];

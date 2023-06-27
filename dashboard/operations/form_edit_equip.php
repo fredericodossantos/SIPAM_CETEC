@@ -4,7 +4,7 @@ session_start();
 
 // Check if the user is not logged in, redirect to login.php
 if (!isset($_SESSION['loggedin'])) {
-    header("Location: ../login.php");
+    header("Location: ../../login.php");
     exit();
 }
 ?>
@@ -58,7 +58,7 @@ if (!isset($_SESSION['loggedin'])) {
                     </div>
                     <?php
                     if(isset($_GET['id'])){
-                        include_once '../db/database.php';
+                        include_once '../../db/database.php';
                         $sql_query = "SELECT * FROM equipment WHERE id = " . $_GET['id'];
                         $result_set = mysqli_query($conn, $sql_query);
                         $fetched_row = mysqli_fetch_array($result_set);

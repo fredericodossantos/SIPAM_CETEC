@@ -1,7 +1,7 @@
 <?php
 session_start();
 //use once the database.php file
-include_once '../db/database.php';
+include_once '../../db/database.php';
 
 
 

@@ -49,7 +49,7 @@
                     </div>
                     <?php
                     if(isset($_GET['id'])){
-                        include_once '../db/database.php';
+                        include_once '../../db/database.php';
                         $sql_query = "SELECT * FROM equipment WHERE id = " . $_GET['id'];
                         $result_set = mysqli_query($conn, $sql_query);
                         $fetched_row = mysqli_fetch_array($result_set);
