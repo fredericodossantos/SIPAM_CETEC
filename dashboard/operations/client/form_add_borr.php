@@ -35,10 +35,10 @@ if (!isset($_SESSION['loggedin'])) {
                     Cadastro
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                    <li><a class="dropdown-item" href="manage_equipment.php">Cadastro de Equipamentos</a></li>                    
+                    <li><a class="dropdown-item" href="../equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
                     <li><a class="dropdown-item" href="manage_users.php">Cadastro de Usuários</a></li>                    
-                    <li><a class="dropdown-item" href="../client/manage_borrower.php">Cadastro de Clientes</a></li>
+                    <li><a class="dropdown-item" href="manage_borrower.php">Cadastro de Clientes</a></li>
                 </ul>
             </div>
             <a class="nav-link" href="transactionlog.php">Log de Empréstimos</a>
@@ -54,21 +54,21 @@ if (!isset($_SESSION['loggedin'])) {
             <div class="col-md-12">
                 <div class="card mt-4">
                     <div class="card-header">
-                        <h4>Cadastro de Equipamentos</h4>
+                        <h4>Cadastro de Cliente</h4>
                     </div>
                     <div class="card-body">
-                        <form action="add_equip.php" method="POST">
+                        <form action="add_borrower.php" method="POST">
                             <div class="form-group mb-3">
-                                <label for="">Nome Equipamento</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nome do equipamento">                            
+                                <label for="">Nome</label>
+                                <input type="text" name="name" class="form-control" placeholder="Nome do cliente">                            
                             </div>
                             <div class="form-group mb-3">
-                                <label for="">Descrição</label>
-                                <input type="text" name="description" class="form-control" placeholder="Descreva o equipamento">                            
+                                <label for="">Email</label>
+                                <input type="text" name="email" class="form-control" placeholder="seu_email@email.com">                            
                             </div>
                             <div class="form-group mb-3">
-                                <label for="">Categoria</label>
-                                <input type="text" name="category" class="form-control" placeholder="Categoria do equipamento">
+                                <label for="">Telefone</label>
+                                <input type="text" name="phone" class="form-control" placeholder="Telefone fixo ou celular">
                             </div>
                             <div class="form-group mb-3">
                                 <button type="submit" name="insert_data" class="btn btn-primary">Save Event</button>

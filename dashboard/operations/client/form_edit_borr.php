@@ -35,10 +35,10 @@ if (!isset($_SESSION['loggedin'])) {
                     Cadastro
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                    <li><a class="dropdown-item" href="manage_equipment.php">Cadastro de Equipamentos</a></li>                    
+                    <li><a class="dropdown-item" href="../equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
                     <li><a class="dropdown-item" href="manage_users.php">Cadastro de Usuários</a></li>                    
-                    <li><a class="dropdown-item" href="../client/manage_borrower.php">Cadastro de Clientes</a></li>
+                    <li><a class="dropdown-item" href="manage_borrower.php">Cadastro de Clientes</a></li>
                 </ul>
             </div>
             <a class="nav-link" href="transactionlog.php">Log de Empréstimos</a>
@@ -54,26 +54,36 @@ if (!isset($_SESSION['loggedin'])) {
             <div class="col-md-12">
                 <div class="card mt-4">
                     <div class="card-header">
-                        <h4>Cadastro de Equipamentos</h4>
+                        <h4>Editar Cliente</h4>
                     </div>
+                    <?php
+                    if(isset($_GET['id'])){
+                        include_once '../../../db/database.php';
+                        $sql_query = "SELECT * FROM borrowers WHERE id = " . $_GET['id'];
+                        $result_set = mysqli_query($conn, $sql_query);
+                        $fetched_row = mysqli_fetch_array($result_set);
+                    }  
+
+                    ?>
                     <div class="card-body">
-                        <form action="add_equip.php" method="POST">
-                            <div class="form-group mb-3">
-                                <label for="">Nome Equipamento</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nome do equipamento">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Descrição</label>
-                                <input type="text" name="description" class="form-control" placeholder="Descreva o equipamento">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Categoria</label>
-                                <input type="text" name="category" class="form-control" placeholder="Categoria do equipamento">
-                            </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" name="insert_data" class="btn btn-primary">Save Event</button>
-                            </div>
-                        </form>
+                    <form action="edit_borrower.php" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                        <div class="form-group mb-3">
+                            <label for="">Nome do Cliente</label>
+                            <input type="text" name="name" value="<?php echo $fetched_row['name']; ?>" class="form-control" placeholder="Nome do cliente">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Email</label>
+                            <input type="text" name="email" value="<?php echo $fetched_row['email']; ?>" class="form-control" placeholder="Email do cliente">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Telefone</label>
+                            <input type="text" name="phone" value="<?php echo $fetched_row['phone']; ?>" class="form-control" placeholder="Telefone de contato do cliente">
+                        </div>
+                        <div class="form-group mb-3">
+                            <button type="submit" name="update_data" class="btn btn-primary">Salvar Edição</button>
+                        </div>
+                    </form>
                     </div>
 
 

@@ -1,13 +1,4 @@
-<?php
-// Start the session
-session_start();
 
-// Check if the user is not logged in, redirect to login.php
-if (!isset($_SESSION['loggedin'])) {
-    header("Location: ../../../login.php");
-    exit();
-}
-?>
 
 
 <!DOCTYPE html>
@@ -35,10 +26,10 @@ if (!isset($_SESSION['loggedin'])) {
                     Cadastro
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                    <li><a class="dropdown-item" href="manage_equipment.php">Cadastro de Equipamentos</a></li>                    
+                    <li><a class="dropdown-item" href="../equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
                     <li><a class="dropdown-item" href="manage_users.php">Cadastro de Usuários</a></li>                    
-                    <li><a class="dropdown-item" href="../client/manage_borrower.php">Cadastro de Clientes</a></li>
+                    <li><a class="dropdown-item" href="manage_borrower.php">Cadastro de Clientes</a></li>
                 </ul>
             </div>
             <a class="nav-link" href="transactionlog.php">Log de Empréstimos</a>
@@ -49,31 +40,43 @@ if (!isset($_SESSION['loggedin'])) {
         </div>
     </div>
     </nav>
-    <?php include ('message.php'); ?>
+
     <div class="row">
             <div class="col-md-12">
                 <div class="card mt-4">
                     <div class="card-header">
-                        <h4>Cadastro de Equipamentos</h4>
+                        <h4>Detalhes de Cliente</h4>
                     </div>
+                    <?php
+                    if(isset($_GET['id'])){
+                        include_once '../../../db/database.php';
+                        $sql_query = "SELECT * FROM borrowers WHERE id = " . $_GET['id'];
+                        $result_set = mysqli_query($conn, $sql_query);
+                        $fetched_row = mysqli_fetch_array($result_set);
+                    }  
+
+                    ?>
                     <div class="card-body">
-                        <form action="add_equip.php" method="POST">
-                            <div class="form-group mb-3">
-                                <label for="">Nome Equipamento</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nome do equipamento">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Descrição</label>
-                                <input type="text" name="description" class="form-control" placeholder="Descreva o equipamento">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Categoria</label>
-                                <input type="text" name="category" class="form-control" placeholder="Categoria do equipamento">
-                            </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" name="insert_data" class="btn btn-primary">Save Event</button>
-                            </div>
-                        </form>
+                    <form>
+                        <div class="form-group mb-3">
+                            <label for="">Nome</label>                            
+                            <p class="form-control"> 
+                                <?=$fetched_row['name'];?>
+                            </p>
+                        </div>
+                        <div class="form-group mb-3">                            
+                            <label for="">Email</label>                            
+                            <p class="form-control"> 
+                                <?=$fetched_row['email'];?>
+                            </p>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Phone</label>                            
+                            <p class="form-control"> 
+                                <?=$fetched_row['phone'];?>
+                            </p>
+                        </div>
+                    </form>
                     </div>
 
 

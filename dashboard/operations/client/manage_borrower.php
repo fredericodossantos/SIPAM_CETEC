@@ -9,6 +9,9 @@ if (!isset($_SESSION['loggedin'])) {
 }
 ?>
 
+<?php
+require_once '../../../db/database.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +38,10 @@ if (!isset($_SESSION['loggedin'])) {
                     Cadastro
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                    <li><a class="dropdown-item" href="manage_equipment.php">Cadastro de Equipamentos</a></li>                    
+                    <li><a class="dropdown-item" href="../equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
                     <li><a class="dropdown-item" href="manage_users.php">Cadastro de Usuários</a></li>                    
-                    <li><a class="dropdown-item" href="../client/manage_borrower.php">Cadastro de Clientes</a></li>
+                    <li><a class="dropdown-item" href="manage_borrower.php">Cadastro de Clientes</a></li>
                 </ul>
             </div>
             <a class="nav-link" href="transactionlog.php">Log de Empréstimos</a>
@@ -51,37 +54,56 @@ if (!isset($_SESSION['loggedin'])) {
     </nav>
     <?php include ('message.php'); ?>
     <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h4>Cadastro de Equipamentos</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="add_equip.php" method="POST">
-                            <div class="form-group mb-3">
-                                <label for="">Nome Equipamento</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nome do equipamento">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Descrição</label>
-                                <input type="text" name="description" class="form-control" placeholder="Descreva o equipamento">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Categoria</label>
-                                <input type="text" name="category" class="form-control" placeholder="Categoria do equipamento">
-                            </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" name="insert_data" class="btn btn-primary">Save Event</button>
-                            </div>
-                        </form>
-                    </div>
-
-
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Clientes
+                        <a href="form_add_borr.php" class="btn btn-primary float-end">Adicionar</a>
                 </div>
-
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $sql = "SELECT * FROM `borrowers`";
+                            $result = mysqli_query($conn, $sql);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                            <tr>
+                                <th scope="row"><?php echo $row['id']; ?></th>
+                                <td><?php echo $row['name']; ?></td>
+                                <td><?php echo $row['email']; ?></td>
+                                <td><?php echo $row['phone']; ?></td>
+                                <td>
+                                    <a href="view_borrower.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Visualizar</a>
+                                    <a href="form_edit_borr.php?id=<?php echo $row['id']; ?>" class="btn btn-success">Editar</a>
+                                    <form action="delete_borrower.php" method="POST" style="display: inline-block;">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="delete_data" class="btn btn-danger">Deletar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
+                            
+                        </tbody>
+                            
+                    </table>
+                </div>
             </div>
-
         </div>
+    </div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
