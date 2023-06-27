@@ -9,6 +9,9 @@ if (!isset($_SESSION['loggedin'])) {
 }
 ?>
 
+<?php
+require_once '../../db/database.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,37 +25,33 @@ if (!isset($_SESSION['loggedin'])) {
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cadastro</a>
+        <a class="navbar-brand" href="#">Empréstimo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             
-            
-            <div class="nav-item dropdown">
+        <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="emprestimoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Empréstimo
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="emprestimoDropdown">
-                    <li><a class="dropdown-item" href="../../transations/borrow_equipment.php">Novo Empréstimo</a></li>
-                    <li><a class="dropdown-item" href="../../transations/return_equipment.php">Devolução</a></li>
-                    <li><a class="dropdown-item" href="../../transations/manage_borrow.php">Gerenciar Empréstimo</a></li>
+                    <li><a class="dropdown-item" href="form_borrow_equipment.php">Novo Empréstimo</a></li>
+                    <li><a class="dropdown-item" href="return_equipment.php">Devolução</a></li>
+                    <li><a class="dropdown-item" href="manage_borrow.php">Gerenciar Empréstimo</a></li>
                 </ul>
 
             </div>
-
-
-
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="cadastroDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Cadastro
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                    <li><a class="dropdown-item" href="../equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
+                    <li><a class="dropdown-item" href="../operations/equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
                     <li><a class="dropdown-item" href="#">Cadastro de Usuários</a></li>                    
-                    <li><a class="dropdown-item" href="manage_borrower.php">Cadastro de Clientes</a></li>
+                    <li><a class="dropdown-item" href="../operations/client/manage_borrower.php">Cadastro de Clientes</a></li>
                 </ul>
             </div>
             <a class="nav-link" href="transactionlog.php">Log de Empréstimos</a>
@@ -65,37 +64,48 @@ if (!isset($_SESSION['loggedin'])) {
     </nav>
     <?php include ('message.php'); ?>
     <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h4>Cadastro de Cliente</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="add_borrower.php" method="POST">
-                            <div class="form-group mb-3">
-                                <label for="">Nome</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nome do cliente">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Email</label>
-                                <input type="text" name="email" class="form-control" placeholder="seu_email@email.com">                            
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Telefone</label>
-                                <input type="text" name="phone" class="form-control" placeholder="Telefone fixo ou celular">
-                            </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" name="insert_data" class="btn btn-primary">Save Event</button>
-                            </div>
-                        </form>
-                    </div>
-
-
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Empréstimo de Equipamento</h4>
                 </div>
 
-            </div>
+                <div class="card-body">
 
+                
+                <form action="borrow_equipment.php" method="POST">
+                    <label for="borrower_id">Borrower:</label>
+                    <select name="borrower_id" required>
+                        <?php while ($row = mysqli_fetch_assoc($resultBorrowers)) { ?>
+                            <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                        <?php } ?>
+                    </select><br><br>
+
+                    <label for="equipment_id">Equipment:</label>
+                    <select name="equipment_id" required>
+                        <?php while ($row = mysqli_fetch_assoc($resultEquipment)) { ?>
+                            <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                        <?php } ?>
+                    </select><br><br>
+
+                    <label for="borrow_date">Borrow Date:</label>
+                    <input type="datetime-local" name="borrow_date" required><br><br>
+
+                    <label for="return_date">Return Date:</label>
+                    <input type="datetime-local" name="return_date" required><br><br>
+
+                    <input type="submit" name="borrow_equipment" value="Borrow">
+                </form>
+
+                    
+      
+                </div>
+            </div>
         </div>
+    </div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

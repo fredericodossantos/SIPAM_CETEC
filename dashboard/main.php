@@ -37,7 +37,7 @@ if (!isset($_SESSION['loggedin'])) {
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
                     <li><a class="dropdown-item" href="operations/equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
-                    <li><a class="dropdown-item" href="manage_users.php">Cadastro de Usuários</a></li>                    
+                    <li><a class="dropdown-item" href="#">Cadastro de Usuários</a></li>                    
                     <li><a class="dropdown-item" href="operations/client/manage_borrower.php">Cadastro de Clientes</a></li>
                 </ul>
             </div>

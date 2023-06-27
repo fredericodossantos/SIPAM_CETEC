@@ -48,10 +48,10 @@ require_once '../../db/database.php';
                     Cadastro
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                    <li><a class="dropdown-item" href="../operations/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
+                    <li><a class="dropdown-item" href="../operations/equipment/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
-                    <li><a class="dropdown-item" href="manage_users.php">Cadastro de Usuários</a></li>                    
-                    <li><a class="dropdown-item" href="../client/manage_borrower.php">Cadastro de Clientes</a></li>
+                    <li><a class="dropdown-item" href="#">Cadastro de Usuários</a></li>                    
+                    <li><a class="dropdown-item" href="../operations/client/manage_borrower.php">Cadastro de Clientes</a></li>
                 </ul>
             </div>
             <a class="nav-link" href="transactionlog.php">Log de Empréstimos</a>
@@ -67,43 +67,47 @@ require_once '../../db/database.php';
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Equipamentos
-                        <a href="form_add_equip.php" class="btn btn-primary float-end">Adicionar</a>
+                    <h4>Equipamentos em Empréstimo
+                        <a href="form_borrow_equipment.php" class="btn btn-primary float-end">Novo Empréstimo</a>
+                    </h4>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <thead>
                             <tr>
                             <th scope="col">ID</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Data de Empréstimo</th>
+                            <th scope="col">Data de Devolução</th>
                             <th scope="col">Equipamento</th>
-                            <th scope="col">Descrição</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM `equipment`";
+                            $sql = "SELECT borrow_transactions.id, borrowers.name, borrow_date, return_date, equipment.name AS equipment_name, borrow_transactions.status FROM borrow_transactions 
+                            JOIN borrowers ON borrow_transactions.borrower_id = borrowers.id 
+                            JOIN equipment ON borrow_transactions.equipment_id = equipment.id";
                             $result = mysqli_query($conn, $sql);
+                            
                             while ($row = mysqli_fetch_assoc($result)) {
                             ?>
-                            <tr>
-                                <th scope="row"><?php echo $row['id']; ?></th>
-                                <td><?php echo $row['name']; ?></td>
-                                <td><?php echo $row['description']; ?></td>
-                                <td>
-                                    <a href="view_equip.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Visualizar</a>
-                                    <a href="form_edit_equip.php?id=<?php echo $row['id']; ?>" class="btn btn-success">Editar</a>
-                                    <form action="delete_equip.php" method="POST" style="display: inline-block;">
-                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="delete_data" class="btn btn-danger">Deletar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php
-                            }
-                            ?>
-                            
+                                <tr>
+                                    <td><?php echo $row['id']; ?></td>
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['borrow_date']; ?></td>
+                                    <td><?php echo $row['return_date']; ?></td>
+                                    <td><?php echo $row['equipment_name']; ?></td>
+                                    <td><?php echo $row['status']; ?></td>
+                                    <td>                                        
+                                        <a href="return_equipment.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Devolver</a>
+                                    </td>                                    
+                                </tr>
+                            <?php } ?>
+                    
                         </tbody>
+
                             
                     </table>
                 </div>
