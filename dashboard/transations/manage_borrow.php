@@ -10,7 +10,7 @@ if (!isset($_SESSION['loggedin'])) {
 ?>
 
 <?php
-require_once '../../../db/database.php';
+require_once '../../db/database.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,29 +25,30 @@ require_once '../../../db/database.php';
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cadastro</a>
+        <a class="navbar-brand" href="#">Empréstimo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             
-            <div class="nav-item dropdown">
+        <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="emprestimoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Empréstimo
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="emprestimoDropdown">
-                    <li><a class="dropdown-item" href="../../transations/borrow_equipment.php">Novo Empréstimo</a></li>
-                    <li><a class="dropdown-item" href="../../transations/return_equipment.php">Devolução</a></li>
-                    <li><a class="dropdown-item" href="../../transations/manage_borrow.php">Gerenciar Empréstimo</a></li>
+                    <li><a class="dropdown-item" href="borrow_equipment.php">Novo Empréstimo</a></li>
+                    <li><a class="dropdown-item" href="return_equipment.php">Devolução</a></li>
+                    <li><a class="dropdown-item" href="manage_borrow.php">Gerenciar Empréstimo</a></li>
                 </ul>
+
             </div>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="cadastroDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Cadastro
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="cadastroDropdown">
-                    <li><a class="dropdown-item" href="manage_equipment.php">Cadastro de Equipamentos</a></li>                    
+                    <li><a class="dropdown-item" href="../operations/manage_equipment.php">Cadastro de Equipamentos</a></li>                    
                     <!-- <li><a class="dropdown-item" href="manage_components.php">Cadastro de Componentes</a></li> -->
                     <li><a class="dropdown-item" href="manage_users.php">Cadastro de Usuários</a></li>                    
                     <li><a class="dropdown-item" href="../client/manage_borrower.php">Cadastro de Clientes</a></li>

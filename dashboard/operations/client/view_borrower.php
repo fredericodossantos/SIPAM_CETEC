@@ -19,8 +19,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            
-            <div class="nav-item dropdown">
+            <a class="nav-link active" aria-current="page" href="#">Index</a>
+                        <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="emprestimoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Empréstimo
                 </a>
