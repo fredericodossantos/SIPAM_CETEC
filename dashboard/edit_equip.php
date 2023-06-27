@@ -20,7 +20,7 @@ if (isset($_POST['update_data'])) {
         exit();
     } else {
         $_SESSION['status'] = "Equipamento não atualizado";
-        header("Location: form_edit_equip.php?id=" . $id); // Redirect back to the form with the ID parameter
+        header("Location: form_edit_equip.php?id=" . $id);
         exit();
     }
     
