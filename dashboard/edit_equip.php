@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Use the database.php file
+// 
 include_once '../db/database.php';
 
 if (isset($_POST['update_data'])) {
