@@ -31,7 +31,7 @@ require_once '../../../db/database.php';
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Index</a>
+            
             <a class="nav-link" href="dashboard.php">Dashboard</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="cadastroDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

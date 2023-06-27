@@ -28,8 +28,17 @@ if (!isset($_SESSION['loggedin'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Index</a>
-            <a class="nav-link" href="dashboard.php">Dashboard</a>
+            
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="emprestimoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Empréstimo
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="emprestimoDropdown">
+                    <li><a class="dropdown-item" href="../../transations/borrow_equipment.php">Novo Empréstimo</a></li>
+                    <li><a class="dropdown-item" href="../../transations/return_equipment.php">Devolução</a></li>
+                    <li><a class="dropdown-item" href="../../transations/manage_borrow.php">Gerenciar Empréstimo</a></li>
+                </ul>
+            </div>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="cadastroDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Cadastro

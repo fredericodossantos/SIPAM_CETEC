@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/06/2023 às 16:45
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Generation Time: Jun 27, 2023 at 08:59 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `sipam_db`
+-- Database: `sipam_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `borrowers`
+-- Table structure for table `borrowers`
 --
 
 CREATE TABLE `borrowers` (
@@ -34,10 +34,17 @@ CREATE TABLE `borrowers` (
   `phone` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `borrowers`
+--
+
+INSERT INTO `borrowers` (`id`, `name`, `email`, `phone`) VALUES
+(1, 'Zezim Joinha', 'joinha@gmail.com', '9199667754');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `borrow_transactions`
+-- Table structure for table `borrow_transactions`
 --
 
 CREATE TABLE `borrow_transactions` (
@@ -45,13 +52,14 @@ CREATE TABLE `borrow_transactions` (
   `borrower_id` int(11) DEFAULT NULL,
   `equipment_id` int(11) DEFAULT NULL,
   `borrow_date` datetime DEFAULT NULL,
-  `return_date` datetime DEFAULT NULL
+  `return_date` datetime DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `components`
+-- Table structure for table `components`
 --
 
 CREATE TABLE `components` (
@@ -64,20 +72,31 @@ CREATE TABLE `components` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `equipment`
+-- Table structure for table `equipment`
 --
 
 CREATE TABLE `equipment` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `category` varchar(100) DEFAULT NULL
+  `category` varchar(100) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `equipment`
+--
+
+INSERT INTO `equipment` (`id`, `name`, `description`, `category`, `status`) VALUES
+(1, 'Drone DJI ', 'Quadricoptero de uso em mapeamento e medição em campo', 'DRONES', NULL),
+(4, 'Mala de comunicação ', 'Mala TELEBRAS de comunicação via satélite', 'telecom', NULL),
+(9, 'Notebook', 'Equipamento de auxílio em campo', 'TI', NULL),
+(10, 'Estação Meteorológica', 'Conjunto de estação meteorológica marca Acme', 'Meteorologia', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -89,17 +108,26 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Índices para tabelas despejadas
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`) VALUES
+(1, 'Frederico dos Santos', 'frederico.santos@sipam.gov.br', 'abc', '2023-06-23 12:53:50'),
+(3, 'Gavin Cortez', 'juju@gmail.com', 'asdfg', '2023-06-26 13:33:00'),
+(4, 'Pedro Pedrada', 'fredericosantos.br@infraero.gov', 'asdfg', '0000-00-00 00:00:00');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `borrowers`
+-- Indexes for table `borrowers`
 --
 ALTER TABLE `borrowers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `borrow_transactions`
+-- Indexes for table `borrow_transactions`
 --
 ALTER TABLE `borrow_transactions`
   ADD PRIMARY KEY (`id`),
@@ -107,71 +135,71 @@ ALTER TABLE `borrow_transactions`
   ADD KEY `equipment_id` (`equipment_id`);
 
 --
--- Índices de tabela `components`
+-- Indexes for table `components`
 --
 ALTER TABLE `components`
   ADD PRIMARY KEY (`id`),
   ADD KEY `equipment_id` (`equipment_id`);
 
 --
--- Índices de tabela `equipment`
+-- Indexes for table `equipment`
 --
 ALTER TABLE `equipment`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `borrowers`
+-- AUTO_INCREMENT for table `borrowers`
 --
 ALTER TABLE `borrowers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de tabela `borrow_transactions`
+-- AUTO_INCREMENT for table `borrow_transactions`
 --
 ALTER TABLE `borrow_transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `components`
+-- AUTO_INCREMENT for table `components`
 --
 ALTER TABLE `components`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `equipment`
+-- AUTO_INCREMENT for table `equipment`
 --
 ALTER TABLE `equipment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT de tabela `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Restrições para tabelas despejadas
+-- Constraints for dumped tables
 --
 
 --
--- Restrições para tabelas `borrow_transactions`
+-- Constraints for table `borrow_transactions`
 --
 ALTER TABLE `borrow_transactions`
   ADD CONSTRAINT `borrow_transactions_ibfk_1` FOREIGN KEY (`borrower_id`) REFERENCES `borrowers` (`id`),
   ADD CONSTRAINT `borrow_transactions_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipment` (`id`);
 
 --
--- Restrições para tabelas `components`
+-- Constraints for table `components`
 --
 ALTER TABLE `components`
   ADD CONSTRAINT `components_ibfk_1` FOREIGN KEY (`equipment_id`) REFERENCES `equipment` (`id`);
