@@ -1,13 +1,4 @@
-<?php
-// Start the session
-session_start();
 
-// Check if the user is not logged in, redirect to login.php
-if (!isset($_SESSION['loggedin'])) {
-    header("Location: ../../login.php");
-    exit();
-}
-?>
 
 
 <!DOCTYPE html>
@@ -49,16 +40,16 @@ if (!isset($_SESSION['loggedin'])) {
         </div>
     </div>
     </nav>
-    <?php include ('message.php'); ?>
+
     <div class="row">
             <div class="col-md-12">
                 <div class="card mt-4">
                     <div class="card-header">
-                        <h4>Editar de Equipamento</h4>
+                        <h4>Detalhes de Equipamento</h4>
                     </div>
                     <?php
                     if(isset($_GET['id'])){
-                        include_once '../../db/database.php';
+                        include_once '../../../db/database.php';
                         $sql_query = "SELECT * FROM equipment WHERE id = " . $_GET['id'];
                         $result_set = mysqli_query($conn, $sql_query);
                         $fetched_row = mysqli_fetch_array($result_set);
@@ -66,22 +57,24 @@ if (!isset($_SESSION['loggedin'])) {
 
                     ?>
                     <div class="card-body">
-                    <form action="edit_equip.php" method="POST">
-                        <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                    <form>
                         <div class="form-group mb-3">
-                            <label for="">Nome Equipamento</label>
-                            <input type="text" name="name" value="<?php echo $fetched_row['name']; ?>" class="form-control" placeholder="Nome do equipamento">
+                            <label for="">Nome Equipamento</label>                            
+                            <p class="form-control"> 
+                                <?=$fetched_row['name'];?>
+                            </p>
+                        </div>
+                        <div class="form-group mb-3">                            
+                            <label for="">Descrição</label>                            
+                            <p class="form-control"> 
+                                <?=$fetched_row['description'];?>
+                            </p>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Descrição</label>
-                            <input type="text" name="description" value="<?php echo $fetched_row['description']; ?>" class="form-control" placeholder="Descreva o equipamento">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="">Categoria</label>
-                            <input type="text" name="category" value="<?php echo $fetched_row['category']; ?>" class="form-control" placeholder="Categoria do equipamento">
-                        </div>
-                        <div class="form-group mb-3">
-                            <button type="submit" name="update_data" class="btn btn-primary">Salvar Edição</button>
+                            <label for="">Categoria</label>                            
+                            <p class="form-control"> 
+                                <?=$fetched_row['category'];?>
+                            </p>
                         </div>
                     </form>
                     </div>
