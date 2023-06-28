@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Login CETEC</title>
+  	<title>Login SETEC</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,7 +24,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-		      	<h3 class="mb-4 text-center">CETEC</h3>
+		      	<h3 class="mb-4 text-center">SETEC</h3>
 		      	<form action="db/login_process.php" method="post" class="login-form">
 		      		<div class="form-group">
 		      			<input type="email" class="form-control" name="email" placeholder="Email" required>

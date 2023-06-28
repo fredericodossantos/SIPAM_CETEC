@@ -21,8 +21,8 @@ if (isset($_POST['borrow_equipment'])) {
     $returnDate = $_POST['return_date'];
     $status = 'Borrowed';
 
-    // Insert the borrow transaction into the borrow_transactions table
-    $sql = "INSERT INTO borrow_transactions (borrower_id, equipment_id, borrow_date, return_date, status) VALUES (?, ?, ?, ?, ?)";
+    // Insert the borrow transaction into the borrow_log table
+    $sql = "INSERT INTO borrow_log (borrower_id, equipment_id, borrow_date, return_date, status) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("iisss", $borrowerId, $equipmentId, $borrowDate, $returnDate, $status);
     $result = $stmt->execute();

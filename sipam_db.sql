@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2023 at 08:59 PM
+-- Generation Time: Jun 28, 2023 at 06:31 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,6 +31,8 @@ CREATE TABLE `borrowers` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `institute` varchar(50) DEFAULT NULL,
+  `sigla` varchar(15) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -38,23 +40,30 @@ CREATE TABLE `borrowers` (
 -- Dumping data for table `borrowers`
 --
 
-INSERT INTO `borrowers` (`id`, `name`, `email`, `phone`) VALUES
-(1, 'Zezim Joinha', 'joinha@gmail.com', '9199667754');
+INSERT INTO `borrowers` (`id`, `name`, `email`, `institute`, `sigla`, `phone`) VALUES
+(1, 'Zezim Joinha', 'joinha@gmail.com', NULL, NULL, '9199667754');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `borrow_transactions`
+-- Table structure for table `borrow_log`
 --
 
-CREATE TABLE `borrow_transactions` (
+CREATE TABLE `borrow_log` (
   `id` int(11) NOT NULL,
   `borrower_id` int(11) DEFAULT NULL,
   `equipment_id` int(11) DEFAULT NULL,
-  `borrow_date` datetime DEFAULT NULL,
-  `return_date` datetime DEFAULT NULL,
+  `borrow_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `borrow_log`
+--
+
+INSERT INTO `borrow_log` (`id`, `borrower_id`, `equipment_id`, `borrow_date`, `return_date`, `status`) VALUES
+(1, 1, 1, '2023-06-27', '2023-07-07', 'emprestado');
 
 -- --------------------------------------------------------
 
@@ -80,18 +89,19 @@ CREATE TABLE `equipment` (
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `category` varchar(100) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL
+  `status` varchar(255) DEFAULT NULL,
+  `serial_number` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `equipment`
 --
 
-INSERT INTO `equipment` (`id`, `name`, `description`, `category`, `status`) VALUES
-(1, 'Drone DJI ', 'Quadricoptero de uso em mapeamento e medição em campo', 'DRONES', NULL),
-(4, 'Mala de comunicação ', 'Mala TELEBRAS de comunicação via satélite', 'telecom', NULL),
-(9, 'Notebook', 'Equipamento de auxílio em campo', 'TI', NULL),
-(10, 'Estação Meteorológica', 'Conjunto de estação meteorológica marca Acme', 'Meteorologia', NULL);
+INSERT INTO `equipment` (`id`, `name`, `description`, `category`, `status`, `serial_number`) VALUES
+(1, 'Drone DJI ', 'Quadricoptero de uso em mapeamento e medição em campo', 'DRONES', NULL, NULL),
+(4, 'Mala de comunicação ', 'Mala TELEBRAS de comunicação via satélite', 'telecom', NULL, NULL),
+(9, 'Notebook', 'Equipamento de auxílio em campo', 'TI', NULL, NULL),
+(10, 'Estação Meteorológica', 'Conjunto de estação meteorológica marca Acme', 'Meteorologia', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -127,9 +137,9 @@ ALTER TABLE `borrowers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `borrow_transactions`
+-- Indexes for table `borrow_log`
 --
-ALTER TABLE `borrow_transactions`
+ALTER TABLE `borrow_log`
   ADD PRIMARY KEY (`id`),
   ADD KEY `borrower_id` (`borrower_id`),
   ADD KEY `equipment_id` (`equipment_id`);
@@ -164,10 +174,10 @@ ALTER TABLE `borrowers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `borrow_transactions`
+-- AUTO_INCREMENT for table `borrow_log`
 --
-ALTER TABLE `borrow_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `borrow_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `components`
@@ -192,11 +202,11 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `borrow_transactions`
+-- Constraints for table `borrow_log`
 --
-ALTER TABLE `borrow_transactions`
-  ADD CONSTRAINT `borrow_transactions_ibfk_1` FOREIGN KEY (`borrower_id`) REFERENCES `borrowers` (`id`),
-  ADD CONSTRAINT `borrow_transactions_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipment` (`id`);
+ALTER TABLE `borrow_log`
+  ADD CONSTRAINT `borrow_log_ibfk_1` FOREIGN KEY (`borrower_id`) REFERENCES `borrowers` (`id`),
+  ADD CONSTRAINT `borrow_log_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipment` (`id`);
 
 --
 -- Constraints for table `components`
